@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Odd One Out Game</title>
+</head>
+<body>
+  <h1>Find the Odd One Out!</h1>
+  <div id="word-list">Loading words...</div>
+  <div id="result"></div>
+  <div id="reason"></div>
+
+  <script>
+    async function fetchWords() {
+      const response = await fetch("/api/words");
+      const data = await response.json();
+      const words = data.words;
+      
+      const wordList = document.getElementById("word-list");
+      wordList.innerHTML = ""; // Clear previous words
+      words.forEach(word => {
+        const wordButton = document.createElement("button");
+        wordButton.textContent = word;
+        wordButton.onclick = () => submitAnswer(word);
+        wordList.appendChild(wordButton);
+      });
+    }
+
+    async function submitAnswer(selectedWord) {
+      document.getElementById("result").textContent = "Checking answer...";
+      
+      const response = await fetch("/api/check", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ userAnswer: selectedWord })
+      });
+
+      const result = await response.json();
+      
+      // Display the result and explanation on the screen
+      document.getElementById("result").textContent = result.message;
+      document.getElementById("reason").textContent = result.odds;
+    }
+
+    fetchWords();
+  </script>
+</body>
+</html>
