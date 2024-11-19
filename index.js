@@ -32,7 +32,7 @@ router.post("/api/check", async (ctx) => {
     const message = userAnswer === correctAnswer ? "Correct!" : "Try again!";
 
     // Get the reason for the odd one out
-    const odds = await promptGPT(`Based on these 4 words: ${words.join(", ")}, write maximum of two sentences on why ${correctAnswer} is the odd one out?`);
+    const odds = await promptGPT(`Based on these 4 words: ${words.join(", ")}, write a short sentence on why ${correctAnswer} is the odd one out!`);
 
     console.log(`User answer: ${userAnswer}`);
     console.log("Correct answer:", correctAnswer);
