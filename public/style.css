@@ -1,11 +1,10 @@
 body{
     margin:0;
     padding: 0;
-    overflow: hidden;
 }
 
 .container{
-    background-color: aliceblue;
+    background-color: beige;
     height:100vh;
     width:100vw;
     display: flex;
@@ -15,15 +14,83 @@ body{
     gap: 3vh;
 }
 
+.landing-title{
+    background-color: aquamarine;
+    text-align: center;
+    height: 100vh;
+    width:100vw;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding-top: 45vh;
+    z-index: 100;
+}
+.landing-title h1{
+    font-size: 4rem;
+}
+.landing-scroll {
+    transform: translateY(10px);
+    background-color: pink;
+  }
+
+.console{
+    background-color: #00ff2f;
+    height:10vh;
+    width: 100vw;
+    display: flex;
+    position: absolute;
+    align-items: center;
+    top:0;
+    justify-content: center;
+    padding-top: 1vh;
+    gap: 2vw;
+}
+
+#point-counter {
+    font-size: 1.5rem;
+    font-weight: bold;
+    background-color: lightyellow;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    text-align: center;
+    position: relative;
+    height:5vh;
+    width:8vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+
+  .timer-constant {
+    height: 5vh;
+    width: 70vw;
+    background-color: #ccc;
+    position: relative;
+    overflow: hidden; /* Ensure the countdown doesn't exceed bounds */
+}
+
+.countdown {
+    height: 5vh;
+    width: 70vw; /* Start with the same width as the constant bar */
+    background-color: #ae5b5b; /* Different color to differentiate it */
+    position: absolute; /* Absolute positioning within the constant bar */
+    top: 0;
+    left: 0;
+    transition: width 0.1s linear; /* Smooth shrinking effect */
+}
+
+
 #title{
     background-color: antiquewhite;
 }
 #word-list{
     height: 40vh;
     width: 40vw;
-    display:flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+    display:grid;
+    grid-template-columns: repeat(2,1fr);
+    grid-template-rows: repeat(2,1fr);
     background-color: antiquewhite;
 }
 
@@ -33,10 +100,21 @@ body{
 }
 
 .word-option{
-    height:40%;
-    width: 40%;
+    height:75%;
+    width: 75%;
+    background-color: #04AA6D;
+    color:white;
+    font-size: 150%;
     margin: auto auto auto auto;
+    transition: ease 1s ;
     border-radius: 15px;
+}
+
+.word-option:hover{
+    height: 79%;
+    width:79%;
+    background-color: #0c6d49;
+    border: none;
 }
 .information{
     width: 40vw;
@@ -53,3 +131,33 @@ body{
 .result-title{
     font-size: 200%;
 }
+
+.result-style{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 500%;
+    z-index: 10;
+    position: absolute;
+    top: 0;
+}
+
+.greenCorrect{
+    background-color: #00ff2f;
+}
+
+.redWrong{
+    background-color: #f00400;
+
+}
+
+.answerOverlay{
+    opacity: 0.5;
+    height:100vh;
+    width: 100vw;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 50;
+}
+

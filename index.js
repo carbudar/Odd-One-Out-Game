@@ -18,6 +18,12 @@ router.get("/api/words", async (ctx) => {
   words = gameRule.split(",").map(word => word.trim());
   correctAnswer = words[words.length - 1]; // Set the last word as the odd one out
 
+  //randomize the word position
+  for (let i = words.length-1; i>0;i--){
+    const j = Math.floor(Math.random()* (i+1));
+    [words[i], words[j]] = [words[j], words[i]]
+  }
+
   console.log("Generated words:", words);
   console.log("Correct answer:", correctAnswer);
 
@@ -29,7 +35,8 @@ router.get("/api/words", async (ctx) => {
 router.post("/api/check", async (ctx) => {
   try {
     const { userAnswer } = await ctx.request.body({ type: "json" }).value;
-    const message = userAnswer === correctAnswer ? "Correct!" : "Try again!";
+    const message = userAnswer === correctAnswer ? "Right!" : "Not Quite"; //show correct/ try again message
+    
 
     // Get the reason for the odd one out
     const odds = await promptGPT(`Based on these 4 words: ${words.join(", ")}, write a short sentence on why ${correctAnswer} is the odd one out!`);
