@@ -18,9 +18,9 @@ function startCountdown(duration) {
 
   // Set the initial width of the countdown bar to match the constant bar
   const totalWidth = timerConstantBar.offsetWidth; // Get the width of the static bar
-  countdownBar.style.width = totalWidth + "px"; // Set the initial width of the countdown bar
+  countdownBar.style.width = totalWidth + "px"; // starting width of timer
 
-  // Calculate the width decrease per interval
+  
   const interval = 10; // Interval in milliseconds
   const step = totalWidth / (duration * 1000 / interval); // Decrease width per interval
 
@@ -28,10 +28,10 @@ function startCountdown(duration) {
 
   // Start the countdown
   countdownTimerId = setInterval(() => {
-    currentWidth -= step; // Decrease the width
+    currentWidth -= step; 
     if (currentWidth <= 0) {
-      currentWidth = 0; // Prevent negative width
-      clearInterval(countdownTimerId); // Stop the interval when the countdown ends
+      currentWidth = 0;//prevent negative out bound
+      clearInterval(countdownTimerId);
       countdownTimerId = null; // Reset the timer ID
 
       // Show red overlay for timeout
@@ -43,13 +43,13 @@ function startCountdown(duration) {
 
       // Fetch new words after a delay
       setTimeout(() => {
-        fetchWords(); // Fetch new set of words
+        fetchWords();
         messageElement.classList.remove("redWrong", "answerOverlay"); // Remove red overlay
         resultDiv.innerHTML = ""; // Clear result
         reasonDiv.textContent = ""; // Clear explanation
       }, 2000); // Delay for 2 seconds before fetching new words
     }
-    countdownBar.style.width = currentWidth + "px"; // Update the width of the countdown bar
+    countdownBar.style.width = currentWidth + "px"; 
   }, interval);
 }
 
@@ -80,6 +80,9 @@ async function submitAnswer(selectedWord) {
   
   // Show loading message
   resultDiv.textContent = "Checking answer...";
+  resultDiv.style.color = "#b31d12"
+  resultDiv.style.fontFamily = "Sigurd"
+  resultDiv.style.fontSize = "140%"
   reasonDiv.textContent = ""; // Clear any previous explanation
 
   const response = await fetch("/api/check", {
@@ -120,7 +123,7 @@ async function submitAnswer(selectedWord) {
        messageElement.classList.remove("greenCorrect");
        resultDiv.innerHTML = ""; // Clear result
        reasonDiv.textContent = ""; // Clear explanation
-    }, 1000);
+    }, 7000);
   } else {
     messageElement.classList.add("redWrong");
     messageElement.classList.add("answerOverlay");
@@ -130,7 +133,7 @@ async function submitAnswer(selectedWord) {
        resultDiv.innerHTML = ""; // Clear result
        reasonDiv.textContent = ""; // Clear explanation
 
-    }, 1000);
+    }, 7000);
   }
 
 
@@ -176,9 +179,7 @@ setTimeout(() => {
 
   landingTitle.remove();
 
-  // landingPage.classList.add('landing-scroll')
-  console.log("Delayed for 4 second.");
-}, 1000);
+}, 3000);
 
 
 

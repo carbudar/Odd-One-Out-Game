@@ -12,7 +12,7 @@ let words;
 
 // Route to generate and send words
 router.get("/api/words", async (ctx) => {
-  const gameRule = await promptGPT("Generate a list of 4 words with similarities. The last word is an odd one out, but not too obvious. Output should only be 4 words, comma-separated.");
+  const gameRule = await promptGPT("Generate a list of 4 words with similar meaning in some way. The last word is an odd one out, but in a subtle way. Output should only be 4 words, comma-separated.");
 
   // Split and trim words, set them to global variable
   words = gameRule.split(",").map(word => word.trim());
