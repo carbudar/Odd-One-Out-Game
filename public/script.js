@@ -109,41 +109,61 @@ async function submitAnswer(selectedWord) {
   //   messageElement.classList.add("try-again-message");
   // }
 
-
-  let greenCorrect = document.querySelector('.greenCorrect')
+  let greenCorrect = document.querySelector('.greenCorrect');
+  const spaceInstruction = document.createElement('div');
+  spaceInstruction.textContent = "Click SPACE to continue!";
+  spaceInstruction.classList.add('spaceInstruction');
+  
+  // Check the result message
   if (result.message === "Right!") {
-    messageElement.classList.add("greenCorrect");
-    messageElement.classList.add("answerOverlay");
-    
-    rightPoint++;
-    pointCounter.textContent = `Points: ${rightPoint}`;
-
-    setTimeout(() => {
-       fetchWords()
-       messageElement.classList.remove("greenCorrect");
-       resultDiv.innerHTML = ""; // Clear result
-       reasonDiv.textContent = ""; // Clear explanation
-    }, 7000);
+      messageElement.classList.add("greenCorrect");
+      messageElement.classList.add("answerOverlay");
+  
+      rightPoint++;
+      pointCounter.textContent = `Points: ${rightPoint}`;
+  
+      // Append the instruction message
+      messageElement.appendChild(spaceInstruction);
+  
+      document.addEventListener("keydown", function onSpacePress(event) {
+          if (event.code === "Space") {
+              event.preventDefault();
+              fetchWords();
+              messageElement.classList.remove("greenCorrect", "answerOverlay");
+              resultDiv.innerHTML = ""; // Clear result
+              reasonDiv.textContent = ""; // Clear explanation
+              spaceInstruction.remove(); // Remove the instruction
+              document.removeEventListener("keydown", onSpacePress); // Remove listener to avoid stacking
+          }
+      });
   } else {
-    messageElement.classList.add("redWrong");
-    messageElement.classList.add("answerOverlay");
-    setTimeout(() => {
-       fetchWords()
-       messageElement.classList.remove("redWrong");
-       resultDiv.innerHTML = ""; // Clear result
-       reasonDiv.textContent = ""; // Clear explanation
-
-    }, 7000);
+      messageElement.classList.add("redWrong");
+      messageElement.classList.add("answerOverlay");
+  
+      // Append the instruction message
+      messageElement.appendChild(spaceInstruction);
+  
+      document.addEventListener("keydown", function onSpacePress(event) {
+          if (event.code === "Space") {
+              event.preventDefault();
+              fetchWords();
+              messageElement.classList.remove("redWrong", "answerOverlay");
+              resultDiv.innerHTML = ""; // Clear result
+              reasonDiv.textContent = ""; // Clear explanation
+              spaceInstruction.remove(); // Remove the instruction
+              document.removeEventListener("keydown", onSpacePress); // Remove listener to avoid stacking
+          }
+      });
   }
-
-
+  
   // Append the styled <h3> to the result div
   resultDiv.appendChild(messageElement);
   
   // If the explanation exists, show it
   if (result.odds) {
       reasonDiv.textContent = result.odds;
-    }
+  }
+  
 
 
   // if(result.message){

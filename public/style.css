@@ -202,3 +202,26 @@ h3{
     z-index: 52;
     color: #ffffff;
 }
+
+.messageElement {
+    position: relative; 
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.spaceInstruction {
+    position: absolute; 
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #bfb4db;
+    color: #8b160d;
+    font-size: 20px;
+    padding: 5px 10px;
+    border-radius: 3px;
+    z-index: 1000;
+    text-align: center;
+}
