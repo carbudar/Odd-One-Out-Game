@@ -55,10 +55,13 @@ function startCountdown(duration) {
 
 
 
+let roundToken = null; // encrypted answer for this round, sent back on check
+
 async function fetchWords() {
   const response = await fetch("/api/words");
   const data = await response.json();
   const words = data.words;
+  roundToken = data.token;
   
   const wordList = document.getElementById("word-list");
   wordList.innerHTML = ""; // Clear previous words
@@ -88,7 +91,7 @@ async function submitAnswer(selectedWord) {
   const response = await fetch("/api/check", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ userAnswer: selectedWord })
+    body: JSON.stringify({ userAnswer: selectedWord, token: roundToken })
   });
 
   const result = await response.json();
